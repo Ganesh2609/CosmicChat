@@ -1,0 +1,29 @@
+import { useEffect } from 'react';
+import Head from 'next/head';
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }) {
+  // Initialize theme from localStorage on client-side
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.classList.add(theme);
+  }, []);
+
+  return (
+    <>
+      <Head>
+        <title>Cosmic Chat</title>
+        <meta name="description" content="A stunning, futuristic chat application built with JAMstack architecture" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
+}
+
+export default MyApp;   
