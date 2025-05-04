@@ -2,6 +2,45 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import '../styles/globals.css';
 
+// Add this function at the top of your _app.js file
+function handleRedirect() {
+  // This script checks if we need to redirect (coming from a GitHub Pages 404 page)
+  if (typeof window !== 'undefined') {
+    const location = window.location;
+    const queryParams = {};
+    
+    if (location.search) {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.forEach((value, key) => {
+        queryParams[key] = value;
+      });
+    }
+    
+    // If we have a path in the query (from our 404.html redirect)
+    if (queryParams.p) {
+      const redirectPath = queryParams.p.replace(/~and~/g, '&');
+      delete queryParams.p;
+      
+      const newQueryString = Object.keys(queryParams)
+        .map(key => `${key}=${queryParams[key]}`)
+        .join('&');
+      
+      // Replace the current URL with the correct path
+      window.history.replaceState(
+        null,
+        '',
+        redirectPath + (newQueryString ? `?${newQueryString}` : '') + location.hash
+      );
+    }
+  }
+}
+
+// Then add this line inside your MyApp function, at the top
+useEffect(() => {
+  handleRedirect();
+  // Rest of your existing useEffect code...
+}, []);
+
 function MyApp({ Component, pageProps }) {
   // Initialize theme from localStorage on client-side
   useEffect(() => {

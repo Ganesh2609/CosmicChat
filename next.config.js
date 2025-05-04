@@ -5,7 +5,7 @@ const nextConfig = {
     output: 'export',
     // Set the base path for GitHub Pages deployment
     // Replace 'cosmic-chat' with your repository name
-    basePath: process.env.NODE_ENV === 'production' ? '/cosmic-chat' : '',
+    basePath: process.env.NODE_ENV === 'production' ? '/CosmicChat' : '',
     // Disable image optimization for static exports
     images: {
       unoptimized: true,
